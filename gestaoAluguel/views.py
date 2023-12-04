@@ -20,7 +20,7 @@ def listar_casa(request):
     casas = Casa.objects.all()
     context = {"casas": casas}
     
-    return render(request, "gestaoAluguel/pages/listar_casa.html", context)
+    return render(request, "gestaoAluguel/pages/teste.html", context)
 
 def registrar_inquilino(request):
     context ={}

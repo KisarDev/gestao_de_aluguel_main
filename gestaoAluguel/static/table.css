@@ -1,0 +1,48 @@
+body {
+    background-image: url('../img/div.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+  }
+@media (max-width: 768px){
+    body{
+        background-size: auto;
+    }
+}
+.titulo h1{
+    background-color: rgb(92, 94, 102);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+}
+.table {
+    align-content: center;
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table th,
+.table thead th {
+    background-color: #15ff008a;
+    color: #fff;
+    border-radius: 5px;
+}
+.table th,
+.table td {
+    border: 1px solid #dee2e6ce;
+    border-collapse: collapse;
+}
+
+.table td {
+    background-color: green;
+    border-radius: 5px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.table {
+    margin-bottom: 1rem;
+    color: #212529;
+}

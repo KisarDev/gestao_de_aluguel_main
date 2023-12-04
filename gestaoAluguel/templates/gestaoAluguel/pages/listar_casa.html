@@ -1,0 +1,23 @@
+{% include "gestaoAluguel/partials/_header.html" %}
+<!-- listagem_casas.html -->
+{% block title %}Lista de Casas{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Lista de Casas Disponíveis</h1>
+        <div class="row mt-3">
+            {% for casa in casas %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ casa.identicador }}</h5>
+                            <p class="card-text"><strong>Endereço:</strong> {{ casa.endereco }}</p>
+                            <p class="card-text"><strong>Preço do Aluguel:</strong> R$ {{ casa.valor_aluguel }}</p>
+                            <p class="card-text"><strong>Representante:</strong> {{ casa.representante }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
