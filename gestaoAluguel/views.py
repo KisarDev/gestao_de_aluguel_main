@@ -12,3 +12,17 @@ def registrar_casa(request):
          
     context['form']= form
     return render(request, "gestaoAluguel/pages/registrar_casa.html", context)
+def casa_home(request):
+    context ={}
+    
+    return render(request, "gestaoAluguel/pages/casa_home.html", context)
+
+def registrar_inquilino(request):
+    context ={}
+    form = InquilinoForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Inquilino registrado com sucesso')
+         
+    context['form']= form
+    return render(request, "gestaoAluguel/pages/registrar_inquilino.html", context)
