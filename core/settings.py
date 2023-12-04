@@ -127,6 +127,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import os
 from django.contrib.messages import constants
 
+USE_L10N = False
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
 MESSAGE_TAGS = {
     constants.DEBUG: 'message-debug',

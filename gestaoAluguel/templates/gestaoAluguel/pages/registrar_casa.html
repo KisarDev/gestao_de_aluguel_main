@@ -1,14 +1,8 @@
 {% load static %}
-{% include "gestaoAluguel/partials/_messages.html" %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    
-    <title>Sistema de Gestão de Aluguel</title>
-</head>
+{% include "gestaoAluguel/partials/_header.html" %}
 <body>
 
     <header>
@@ -18,17 +12,9 @@
     <section>
         <h2>Cadastrar Novo Aluguel</h2>
 
-        <form method="POST" enctype="multipart/form-data">
-            
-        
-            <!-- Security token -->
-            {% csrf_token %}
-        
-            <!-- Using the formset -->
-            {{ form.as_p }}
-            
-            <input type="submit" value="Submit">
-        </form>
+        {% block form %}
+        {% include "gestaoAluguel/partials/_forms.html" %}
+        {% endblock form %}
     </section>
 
 </body>
