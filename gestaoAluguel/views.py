@@ -13,9 +13,14 @@ def registrar_casa(request):
     context['form']= form
     return render(request, "gestaoAluguel/pages/registrar_casa.html", context)
 def casa_home(request):
-    context ={}
+    context = {}
     
     return render(request, "gestaoAluguel/pages/casa_home.html", context)
+def listar_casa(request):
+    casas = Casa.objects.all()
+    context = {"casas": casas}
+    
+    return render(request, "gestaoAluguel/pages/listar_casa.html", context)
 
 def registrar_inquilino(request):
     context ={}
