@@ -4,7 +4,9 @@ from .forms import CasaForm, InquilinoForm
 from django.contrib import messages
 
 def home(request):
-    return render(request, "gestaoAluguel/pages/home.html")
+    casas = Casa.objects.all()
+    context = {"casas": casas}
+    return render(request, "gestaoAluguel/pages/home.html", context)
 
     
 def registrar_casa(request):
@@ -17,7 +19,8 @@ def registrar_casa(request):
     context['form']= form
     return render(request, "gestaoAluguel/pages/registrar_casa.html", context)
 def casa_home(request):
-    context = {}
+    casas = Casa.objects.all()
+    context = {"casas": casas}
     
     return render(request, "gestaoAluguel/pages/casa_home.html", context)
 def listar_casa(request):
