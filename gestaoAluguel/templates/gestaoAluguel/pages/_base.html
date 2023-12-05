@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>{% block titulo %} {% endblock %}</title>
+
+</head>
+
+
+<body class="bg-dark">
+    <header class="container text-center text-light bg-dark pt-3 pb-3">
+        <h1>Gestão de Aluguel</h1>
+    </header>
+    <nav class="container bg-dark  p-3">
+        <ul class="nav justify-content-center text-sm-center">
+            <li class="nav-item m-2">
+                <button class="btn btn-primary rounded-10">
+                <a href="{% url 'casa_home'%}" class="nav-link text-light">Casas</a>
+            </button>
+            </li>
+            <li class="nav-item m-2">
+                <button class="btn btn-primary rounded-10">
+                <a href="#" class="nav-link text-light">Inquilinos</a>
+            </button>
+            </li>
+            <li class="nav-item m-2">
+                <button class="btn btn-primary rounded-10">
+                <a href="#" class="nav-link text-light">Faturamento</a>
+            </button>
+            </li>
+        </ul>
+    </nav>
+    {% block banner %}
+        {% include "gestaoAluguel/partials/_banner.html" %}
+    {% endblock banner %}
+    {% block conteudo %}{% endblock conteudo %}
+    <footer class="container modal-footer">
+        <i class="fas fa-copyright text-light ">By:Cesar Augusto</i>
+    </footer>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

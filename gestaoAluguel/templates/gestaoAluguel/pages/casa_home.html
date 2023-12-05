@@ -1,18 +1,9 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="pt-br">
-{% include "gestaoAluguel/partials/_header.html" %}
-<body>
-
-    <header>
-        <h1>Sistema de Gestão de Aluguel</h1>
-    </header>
-
-    <section>
-        <h2>Gerenciamento de casas</h2>
-
+{% extends "gestaoAluguel/pages/_base.html" %}
+{% block banner %}
+{% endblock banner %}
+{% block titulo %}Manejar Casas{% endblock titulo %}
+{% block conteudo %}
+    <section class="container">
+        <h1 class="text-center text-light">Manejar Casas</h1>
     </section>
-
-</body>
-</html>
+{% endblock conteudo %}

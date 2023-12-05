@@ -2,7 +2,11 @@ from django.shortcuts import render
 from .models import Casa, Inquilino
 from .forms import CasaForm, InquilinoForm
 from django.contrib import messages
- 
+
+def home(request):
+    return render(request, "gestaoAluguel/pages/home.html")
+
+    
 def registrar_casa(request):
     context ={}
     form = CasaForm(request.POST or None)
