@@ -6,7 +6,7 @@ from .models import Casa, Inquilino
 class CasaForm(forms.ModelForm):
     class Meta:
         model = Casa
-        fields = '__all__'
+        exclude = ('pago',)
 
 class InquilinoForm(forms.ModelForm):
     class Meta:

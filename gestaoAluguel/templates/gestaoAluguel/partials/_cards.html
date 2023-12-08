@@ -8,13 +8,27 @@
     <div class="row row-cols-auto justify-content-center">
         {% for casa in casas %}
         <div class="card p-3 m-2 bg-dark text-light border-danger rounded-30">
-            <img src="{% static 'img/img.jpg' %}" alt="" class="card-img-top mb-2 align-self-center" style="width: 200px;">
+            <img src="{% static 'img/img.jpg' %}" alt="" class="card-img-top mb-2 align-self-center" style="width: 400px;">
             <span class="text-light text-center">Representante:</span>
             <span class="text-primary text-center">{{ casa.representante }}</span>
             <span class="text-light text-center">Identificador:</span>
-            <span class="text-primary text-center">{{ casa.identicador }}</span>
+            <span class="text-primary text-center">{{ casa.identificador }}</span>
+            <span class="text-light text-center">Vencimento do aluguel:</span>
+            <span class="text-primary text-center">{{casa.data_vencimento_aluguel}}</span>
+            <span class="text-light text-center">Valor do aluguel:</span>
+            <span class="text-primary text-center">{{ casa.valor_aluguel }}</span> <br>
+            {% if casa.pago%}
+                <span class="btn btn-success m-2">Pago</span>
+            {% endif %}
+            {% if casa.pago == False %}
+                <span class="btn btn-danger m-2">Dívida</span>
+            {% endif %}
+
+
+
             
-            <a class="text-center text-danger" href="#">Casa</a>
+            <a href="{% url 'atualizar_casa' casa.id %}" class="btn btn-primary"><button class="btn btn-primary m-2 ">Atualizar</button></a> <br>
+            <a href="{% url 'deletar_casa' casa.id %}" class="btn btn-primary"><button class="btn btn-primary m-2">Deletar</button></a>
         </div>
         {% endfor %}
     </div>
