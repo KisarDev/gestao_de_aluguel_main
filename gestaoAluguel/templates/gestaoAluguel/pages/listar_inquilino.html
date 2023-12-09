@@ -1,0 +1,43 @@
+{% extends "gestaoAluguel/dashboard/index.html" %}
+{% include "gestaoAluguel/partials/_header.html" %}
+<!DOCTYPE html>
+{% load static %}
+{% block conteudo %}
+<body>
+    <header class="container text-center">
+        <h1>Tabela de casas</h1>
+        
+    </header>
+    <div class="container mt-4">
+        <style>
+            /* Adicione este bloco de estilo para garantir bordas nas células da tabela */
+            table.table-bordered td, table.table-bordered th {
+                border: 1px solid black;
+            }
+        </style>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Casa</th>
+                </tr>
+            </thead>
+            <tbody class="table table-bordered">
+                {% for inquilino in inquilinos %}
+                    <tr class="table table-bordered thead-dark">
+                        <td><a href="{% url 'atualizar_inquilino' inquilino.id %}">{{ inquilino.nome }}</a></td>
+                        <td>{{ inquilino.cpf }}</td>
+                        <td>{{ inquilino.telefone }}</td>
+                        <td>{{ inquilino.identificador_casa }}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+</body>
+{% endblock conteudo %}

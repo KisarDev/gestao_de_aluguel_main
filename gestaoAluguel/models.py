@@ -9,6 +9,13 @@ class Inquilino(models.Model):
     nome = models.CharField('Nome', max_length=100)
     cpf = models.CharField('CPF', max_length=25, unique=True)
     telefone = models.CharField('Telefone', max_length=30)
+    dono = models.ForeignKey(User, on_delete=models.CASCADE)
+    identificador_casa = models.ForeignKey('Casa', on_delete=models.CASCADE,
+                                           null=True, blank=True)
+
+    def obter_identificador_da_casa(self):
+        # Acesse um atributo específico da casa
+        return self.casa.identificador
 
     def __str__(self):
         return self.nome

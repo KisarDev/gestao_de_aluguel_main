@@ -1,15 +1,14 @@
 from django.http import HttpResponseRedirect
-from .models import Casa
+from .models import Casa, Inquilino
 from django.shortcuts import get_object_or_404, render
 from .forms import CasaForm, InquilinoForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 
 @login_required(login_url='login')
 def home(request):
-    casas = Casa.objects.all()
+    casas = Casa.objects.filter(dono=request.user)
     context = {"casas": casas}
     return render(request, "gestaoAluguel/pages/home.html", context)
 
@@ -49,6 +48,8 @@ def registrar_inquilino(request):
     context = {}
     form = InquilinoForm(request.POST or None)
     if form.is_valid():
+        inquilino = form.save(commit=False)    
+        inquilino.dono = request.user
         form.save()
         messages.success(request, 'Inquilino registrado com sucesso')
 
@@ -76,6 +77,25 @@ def atualizar_casa(request, id):
     context["form"] = form
     Casa.calcular_data_de_vencimento(obj)
     return render(request, "gestaoAluguel/pages/atualizar_casa.html", context)
+@login_required(login_url='login')
+def atualizar_inquilino(request, id):
+    context = {}
+
+    # fetch the object related to passed id
+    obj = get_object_or_404(Inquilino, id=id)
+
+    # pass the object as instance in form
+    form = InquilinoForm(request.POST or None, instance=obj)
+
+    # save the data from the form and
+    # redirect to detail_view
+    if form.is_valid():
+        form.save()
+
+    # add form dictionary to context
+    context["form"] = form
+
+    return render(request, "gestaoAluguel/pages/atualizar_inquilino.html", context)
 
 
 # delete view for details
@@ -97,4 +117,12 @@ def dashboard(request):
     context = {"user": user}
 
     return render(request, "gestaoAluguel/dashboard/index.html",
+                  context=context)
+
+
+@login_required(login_url='login')
+def listar_inquilinos(request):
+    inquilinos = Inquilino.objects.filter(dono=request.user)
+    context = {"inquilinos": inquilinos}
+    return render(request, "gestaoAluguel/pages/listar_inquilino.html",
                   context=context)
