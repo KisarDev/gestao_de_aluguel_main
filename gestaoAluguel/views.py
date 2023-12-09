@@ -77,3 +77,7 @@ def deletar_casa(request, id):
         return HttpResponseRedirect("/casa/")
 
     return render(request, "gestaoAluguel/pages/deletar_casa.html", context)
+
+
+def dashboard(request):
+    return render(request, "gestaoAluguel/dashboard/index.html")

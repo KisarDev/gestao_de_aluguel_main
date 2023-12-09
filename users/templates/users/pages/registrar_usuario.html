@@ -1,0 +1,27 @@
+{% extends "users/pages/base.html" %}
+{% block conteudo %}
+{% include "gestaoAluguel/partials/_header.html" %}
+<section class="container d-flex justify-content-center align-items-center vh-50 bg-dark rounded-3">
+    <form method="POST" class="form-group bg-dark text-light p-3 rounded">
+        {% csrf_token %}
+        <h2 class="mb-4">Register</h2>
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Insira seu nome de usuário</label>
+            <input id="username" type="text" name="username" class="form-control" maxlength="20" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Insira sua senha:</label>
+            <input id="password" type="password" name="password" class="form-control" maxlength="20" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="confirmar_password" class="form-label">Confirme sua senha:</label>
+            <input id="confirmar_password" type="password" name="confirmar_password" class="form-control" maxlength="20" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+</section>
+{% endblock conteudo %}
