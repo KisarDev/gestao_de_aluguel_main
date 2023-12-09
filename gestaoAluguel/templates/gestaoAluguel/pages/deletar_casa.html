@@ -1,14 +1,40 @@
-{% extends "gestaoAluguel/pages/_base.html" %}
-{% block banner %}{% endblock banner %}
+{% extends "gestaoAluguel/dashboard/index.html" %}
+{% include "gestaoAluguel/partials/_header.html" %}
+{% load crispy_forms_tags %}
+
 {% block conteudo %}
-    <div class="container">
-        <!-- Create a Form -->
-        <form method="POST" class="form text-danger text-center">
-            <!-- Security token by Django -->
-            {% csrf_token %}
-            <h1>Voce tem certeza que quer deletar esta casa ?</h1> <br>
-            <input class="btn btn-danger" type="submit" value="Yes" />
-            <a class="btn btn-light" href="/">Cancel </a>
-        </form>
-    </div>
-{% endblock conteudo %}
+
+    <body>
+
+        <div class="container bg-primary text-light shadow-md p-5 form-layout">
+
+            <h3>Remova os registros dessa casa</h3>
+
+            <hr>
+            <br>
+
+            <form method="POST" autocomplete="off">
+
+                {% csrf_token %}
+
+                <br>
+
+                <button type="submit" class="btn btn-light w-100 btn-block p-2"> Deletar &nbsp; </button>
+
+                <a href="{% url 'dashboard' %}" class="btn btn-light w-100 btn-block p-2"> Cancelar &nbsp;</a>
+
+
+            </form>
+
+            <br>
+
+
+
+        </div>
+
+        <br>
+
+    </body>
+
+
+{% endblock %}

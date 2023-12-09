@@ -1,0 +1,59 @@
+{% extends "gestaoAluguel/dashboard/index.html" %}
+{% include "gestaoAluguel/partials/_header.html" %}
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+
+    <body>
+
+        <div class="container bg-primary text-light shadow-md p-5 form-layout">
+
+            <h3> Registre sua casa. </h3>
+
+            <h5> Comece a gerenciar suas casas hoje mesmo! </h5>
+
+            <hr>
+            <br>
+
+            <form method="POST" autocomplete="off">
+
+                {% csrf_token %}
+
+                {{form.identificador|as_crispy_field}}
+
+                <br>
+
+                {{form.representante|as_crispy_field}}
+
+                <br>
+
+                {{form.endereco|as_crispy_field}}
+                <br>
+
+                {{form.valor_aluguel|as_crispy_field}}
+                <br>
+
+                {{form.data_ultimo_pagamento|as_crispy_field}}
+                <br>
+
+                {{form.data_vencimento_aluguel|as_crispy_field}}
+
+                <br>
+
+                <button type="submit" class="btn btn-light w-100 btn-block p-2"> Registrar &nbsp; <i class="fa fa-user" aria-hidden="true"></i> </button>
+
+
+            </form>
+
+            <br>
+
+
+
+        </div>
+
+        <br>
+
+    </body>
+
+
+{% endblock %}

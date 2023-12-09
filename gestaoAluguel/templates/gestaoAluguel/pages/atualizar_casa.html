@@ -1,21 +1,58 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "gestaoAluguel/dashboard/index.html" %}
 {% include "gestaoAluguel/partials/_header.html" %}
-<body>
+{% load crispy_forms_tags %}
 
-    <header>
-        <h1>Sistema de Gestão de Aluguel</h1>
-    </header>
+{% block conteudo %}
 
-    <section>
-        <h2>Atualizar dados da casa.</h2>
+    <body>
 
-        {% block form %}
-        {% include "gestaoAluguel/partials/_forms.html" %}
-        {% endblock form %}
-    </section>
+        <div class="container bg-primary text-light shadow-md p-5 form-layout">
 
-</body>
-</html>
+            <h3> Atualize os dados da sua casa. </h3>
+
+
+            <hr>
+            <br>
+
+            <form method="POST" autocomplete="off">
+
+                {% csrf_token %}
+
+                {{form.identificador|as_crispy_field}}
+
+                <br>
+
+                {{form.representante|as_crispy_field}}
+
+                <br>
+
+                {{form.endereco|as_crispy_field}}
+                <br>
+
+                {{form.valor_aluguel|as_crispy_field}}
+                <br>
+
+                {{form.data_ultimo_pagamento|as_crispy_field}}
+                <br>
+
+                {{form.data_vencimento_aluguel|as_crispy_field}}
+
+                <br>
+
+                <button type="submit" class="btn btn-light w-100 btn-block p-2"> Atualizar &nbsp; <i class="fa fa-user" aria-hidden="true"></i> </button>
+
+
+            </form>
+
+            <br>
+
+
+
+        </div>
+
+        <br>
+
+    </body>
+
+
+{% endblock %}

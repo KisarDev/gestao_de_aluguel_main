@@ -1,27 +1,55 @@
-{% extends "users/pages/base.html" %}
-{% block conteudo %}
-{% include "gestaoAluguel/partials/_header.html" %}
-<section class="container d-flex justify-content-center align-items-center vh-50 bg-dark rounded-3">
-    <form method="POST" class="form-group bg-dark text-light p-3 rounded">
-        {% csrf_token %}
-        <h2 class="mb-4">Register</h2>
+{% extends 'users/pages/base.html' %}
 
-        <div class="mb-3">
-            <label for="username" class="form-label">Insira seu nome de usuário</label>
-            <input id="username" type="text" name="username" class="form-control" maxlength="20" required>
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <body>
+
+        <div class="container bg-light shadow-md p-5 form-layout">
+
+            <h3> Create your account </h3>
+
+            <h5> Start managing your clients today! </h5>
+
+            <hr>
+            <br>
+
+            <form method="POST" autocomplete="off">
+
+                {% csrf_token %}
+
+                {{form.username|as_crispy_field}}
+
+                <br>
+
+                {{form.password1|as_crispy_field}}
+
+                <br>
+
+                {{form.password2|as_crispy_field}}
+
+                <br>
+
+                <button type="submit" class="btn btn-primary w-100 btn-block p-2"> Create account &nbsp; <i class="fa fa-user" aria-hidden="true"></i> </button>
+
+
+            </form>
+
+            <br>
+
+            <div class="text-center">
+
+                <p> Already have an account? </p> <a href="{% url 'login' %}"> Login </a>
+
+            </div>
+
+
         </div>
 
-        <div class="mb-3">
-            <label for="password" class="form-label">Insira sua senha:</label>
-            <input id="password" type="password" name="password" class="form-control" maxlength="20" required>
-        </div>
+        <br>
 
-        <div class="mb-3">
-            <label for="confirmar_password" class="form-label">Confirme sua senha:</label>
-            <input id="confirmar_password" type="password" name="confirmar_password" class="form-control" maxlength="20" required>
-        </div>
+    </body>
 
-        <button type="submit" class="btn btn-success">Register</button>
-    </form>
-</section>
-{% endblock conteudo %}
+
+{% endblock %}

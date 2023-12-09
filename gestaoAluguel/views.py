@@ -1,41 +1,50 @@
 from django.http import HttpResponseRedirect
-from .models import Casa, Inquilino
+from .models import Casa
 from django.shortcuts import get_object_or_404, render
 from .forms import CasaForm, InquilinoForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
+@login_required(login_url='login')
 def home(request):
     casas = Casa.objects.all()
     context = {"casas": casas}
     return render(request, "gestaoAluguel/pages/home.html", context)
 
 
+@login_required(login_url='login')
 def registrar_casa(request):
     context = {}
     form = CasaForm(request.POST or None)
     if form.is_valid():
+        casa = form.save(commit=False)
+        casa.dono = request.user
         form.save()
         messages.success(request, 'Casa registrada com sucesso!')
 
     context['form'] = form
-    return render(request, "gestaoAluguel/pages/registrar_casa.html", context)
+    return render(request, "gestaoAluguel/pages/registrar_casa2.html", context)
 
 
+@login_required(login_url='login')
 def casa_home(request):
-    casas = Casa.objects.all()
+    casas = Casa.objects.filter(dono=request.user)
     context = {"casas": casas}
 
     return render(request, "gestaoAluguel/pages/casa_home.html", context)
 
 
+@login_required(login_url='login')
 def listar_casa(request):
-    casas = Casa.objects.all()
+    casas = Casa.objects.filter(dono=request.user)
     context = {"casas": casas}
 
-    return render(request, "gestaoAluguel/pages/teste.html", context)
+    return render(request, "gestaoAluguel/pages/tabela_casas.html", context)
 
 
+@login_required(login_url='login')
 def registrar_inquilino(request):
     context = {}
     form = InquilinoForm(request.POST or None)
@@ -44,9 +53,11 @@ def registrar_inquilino(request):
         messages.success(request, 'Inquilino registrado com sucesso')
 
     context['form'] = form
-    return render(request, "gestaoAluguel/pages/registrar_inquilino.html", context)
+    return render(request, "gestaoAluguel/pages/registrar_inquilino.html",
+                  context)
 
 
+@login_required(login_url='login')
 def atualizar_casa(request, id):
     context = {}
 
@@ -68,6 +79,7 @@ def atualizar_casa(request, id):
 
 
 # delete view for details
+@login_required(login_url='login')
 def deletar_casa(request, id):
     obj = get_object_or_404(Casa, id=id)
     context = {"casa": obj}
@@ -79,5 +91,10 @@ def deletar_casa(request, id):
     return render(request, "gestaoAluguel/pages/deletar_casa.html", context)
 
 
+@login_required(login_url='login')
 def dashboard(request):
-    return render(request, "gestaoAluguel/dashboard/index.html")
+    user = request.user
+    context = {"user": user}
+
+    return render(request, "gestaoAluguel/dashboard/index.html",
+                  context=context)
