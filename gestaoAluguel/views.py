@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Casa, Inquilino
 from django.shortcuts import get_object_or_404, render
 from .forms import CasaForm, InquilinoForm
@@ -48,7 +48,7 @@ def registrar_inquilino(request):
     context = {}
     form = InquilinoForm(request.POST or None)
     if form.is_valid():
-        inquilino = form.save(commit=False)    
+        inquilino = form.save(commit=False)
         inquilino.dono = request.user
         form.save()
         messages.success(request, 'Inquilino registrado com sucesso')
@@ -77,6 +77,8 @@ def atualizar_casa(request, id):
     context["form"] = form
     Casa.calcular_data_de_vencimento(obj)
     return render(request, "gestaoAluguel/pages/atualizar_casa.html", context)
+
+
 @login_required(login_url='login')
 def atualizar_inquilino(request, id):
     context = {}
@@ -114,7 +116,10 @@ def deletar_casa(request, id):
 @login_required(login_url='login')
 def dashboard(request):
     user = request.user
-    context = {"user": user}
+
+    context = {"user": user,
+               "rendimento_estimando": rendimento_estimado(request=request),
+               "rendimento_atual": rendimento_atual(request=request)}
 
     return render(request, "gestaoAluguel/dashboard/index.html",
                   context=context)
@@ -126,3 +131,20 @@ def listar_inquilinos(request):
     context = {"inquilinos": inquilinos}
     return render(request, "gestaoAluguel/pages/listar_inquilino.html",
                   context=context)
+
+
+def rendimento_estimado(request):
+    casas = Casa.objects.filter(dono=request.user)
+    rendimento_estimado = 0
+    for casa in casas:
+        rendimento_estimado += casa.valor_aluguel
+    return rendimento_estimado
+
+
+def rendimento_atual(request):
+    casas = Casa.objects.filter(dono=request.user)
+    rendimento_atual = 0
+    for casa in casas:
+        if casa.pago:
+            rendimento_atual += casa.valor_aluguel
+    return rendimento_atual

@@ -57,3 +57,24 @@ class Casa(models.Model):
 
     def __str__(self):
         return self.identificador
+
+
+class MesRendimento(models.Model):
+    rendimento_do_mes = models.FloatField()
+    mes_choices = (
+        ('jan', 'Janeiro'),
+        ('fev', 'Fevereiro'),
+        ('mar', 'Março'),
+        ('abr', 'Abril'),
+        ('mai', 'Maio'),
+        ('jun', 'Junho'),
+        ('jul', 'Julio'),
+        ('ago', 'Agosto'),
+        ('set', 'Setembro'),
+        ('out', 'Outubro'),
+        ('nov', 'Novembro'),
+        ('dez', 'Dezembro'),
+    )
+    mes = models.CharField(max_length=3, choices=mes_choices)
+    valor_aluguel = models.ForeignKey(
+        Casa, on_delete=models.CASCADE)
