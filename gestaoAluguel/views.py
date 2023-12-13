@@ -116,11 +116,19 @@ def deletar_casa(request, id):
 @login_required(login_url='login')
 def dashboard(request):
     user = request.user
-
+    _rendimento_estimado = rendimento_estimado(request=request)
+    _rendimento_atual = rendimento_atual(request=request)
+    _rendimento_pendente = _rendimento_estimado - _rendimento_atual
+    valores = [_rendimento_estimado, _rendimento_atual, _rendimento_pendente]
     context = {"user": user,
-               "rendimento_estimando": rendimento_estimado(request=request),
-               "rendimento_atual": rendimento_atual(request=request)}
-
+               "rendimento_estimando": _rendimento_estimado,
+               "rendimento_atual": _rendimento_atual,
+               "rendimento_pendente": _rendimento_pendente,
+               "quantidade_de_alugueis": len(Casa.objects.filter
+                                             (dono=request.user)),
+               "valores": valores
+               }
+    print(valores)
     return render(request, "gestaoAluguel/dashboard/index.html",
                   context=context)
 
