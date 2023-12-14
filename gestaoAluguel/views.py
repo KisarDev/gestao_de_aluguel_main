@@ -1,4 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from utils.message import enviar_aviso
+from utils.verificardor_de_cobranca import verificador_de_cobranca
 from .models import Casa, Inquilino
 from django.shortcuts import get_object_or_404, render
 from .forms import CasaForm, InquilinoForm
@@ -24,7 +26,7 @@ def registrar_casa(request):
         messages.success(request, 'Casa registrada com sucesso!')
 
     context['form'] = form
-    
+
     return render(request, "gestaoAluguel/pages/registrar_casa2.html", context)
 
 
@@ -169,3 +171,15 @@ def rendimento_atual(request):
         if casa.pago:
             rendimento_atual += casa.valor_aluguel
     return rendimento_atual
+
+
+def spider(request):
+    id_casa = verificador_de_cobranca(user=request.user)
+    casas = Casa.objects.filter(dono=request.user, id=id_casa)
+    for casa in casas:
+        nome = casa.representante
+        nome_da_casa = casa.identificador
+        data_de_vencimento = casa.data_vencimento_aluguel
+    
+    enviar_aviso(nome=nome, casa=nome_da_casa, data_do_vencimento_do_aluguel=data_de_vencimento)
+    return HttpResponse("Aviso enviado com sucesso!")
