@@ -31,6 +31,7 @@ class Casa(models.Model):
     pago = models.BooleanField(default=False)
     data_ultimo_pagamento = models.DateField()
     data_vencimento_aluguel = models.DateField()
+    adiantamento = models.JSONField(blank=True, null=True, default={"dia_do_adiantamento": "00/00/0000", "valor_do_adiantamento": 0.0})
 
     def calcular_data_de_vencimento(self):
         data_de_hoje = date.today()
@@ -59,22 +60,22 @@ class Casa(models.Model):
         return self.identificador
 
 
-class MesRendimento(models.Model):
-    rendimento_do_mes = models.FloatField()
-    mes_choices = (
-        ('jan', 'Janeiro'),
-        ('fev', 'Fevereiro'),
-        ('mar', 'Março'),
-        ('abr', 'Abril'),
-        ('mai', 'Maio'),
-        ('jun', 'Junho'),
-        ('jul', 'Julio'),
-        ('ago', 'Agosto'),
-        ('set', 'Setembro'),
-        ('out', 'Outubro'),
-        ('nov', 'Novembro'),
-        ('dez', 'Dezembro'),
-    )
-    mes = models.CharField(max_length=3, choices=mes_choices)
-    valor_aluguel = models.ForeignKey(
-        Casa, on_delete=models.CASCADE)
+# class MesRendimento(models.Model):
+#     rendimento_do_mes = models.FloatField()
+#     mes_choices = (
+#         ('jan', 'Janeiro'),
+#         ('fev', 'Fevereiro'),
+#         ('mar', 'Março'),
+#         ('abr', 'Abril'),
+#         ('mai', 'Maio'),
+#         ('jun', 'Junho'),
+#         ('jul', 'Julio'),
+#         ('ago', 'Agosto'),
+#         ('set', 'Setembro'),
+#         ('out', 'Outubro'),
+#         ('nov', 'Novembro'),
+#         ('dez', 'Dezembro'),
+#     )
+#     mes = models.CharField(max_length=3, choices=mes_choices)
+#     valor_aluguel = models.ForeignKey(
+#         Casa, on_delete=models.CASCADE)

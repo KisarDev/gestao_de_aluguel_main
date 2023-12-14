@@ -24,6 +24,7 @@ def registrar_casa(request):
         messages.success(request, 'Casa registrada com sucesso!')
 
     context['form'] = form
+    
     return render(request, "gestaoAluguel/pages/registrar_casa2.html", context)
 
 
@@ -103,7 +104,7 @@ def atualizar_inquilino(request, id):
 # delete view for details
 @login_required(login_url='login')
 def deletar_casa(request, id):
-    obj = get_object_or_404(Casa, id=id)
+    obj = Casa.objects.filter(dono=request.user, id=id)
     context = {"casa": obj}
 
     if request.method == "POST":
@@ -111,6 +112,18 @@ def deletar_casa(request, id):
         return HttpResponseRedirect("/casa/")
 
     return render(request, "gestaoAluguel/pages/deletar_casa.html", context)
+
+
+@login_required(login_url='login')
+def deletar_inquilino(request, id):
+    obj = Inquilino.objects.filter(dono=request.user, id=id)
+    context = {"inquilino": obj}
+
+    if request.method == "POST":
+        obj.delete()
+        return HttpResponseRedirect("/dashboard/")
+
+    return render(request, "gestaoAluguel/pages/deletar_inquilino.html", context)
 
 
 @login_required(login_url='login')

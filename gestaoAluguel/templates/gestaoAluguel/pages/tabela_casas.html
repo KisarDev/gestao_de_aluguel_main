@@ -24,6 +24,7 @@
                     <th>Valor do Aluguel</th>
                     <th>Data do último pagamento</th>
                     <th>Data de vencimento</th>
+                    <th>Adiantamento</th>
                 </tr>
             </thead>
             <tbody class="table table-bordered">
@@ -35,6 +36,7 @@
                         <td>R$: {{ casa.valor_aluguel }}</td>
                         <td>{{ casa.data_ultimo_pagamento }}</td>
                         <td>{{ casa.data_vencimento_aluguel }}</td>
+                        <td>{{ casa.adiantamento }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
