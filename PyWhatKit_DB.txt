@@ -28,3 +28,23 @@ Time: 18:35
 Phone Number: +5535997233676
 Message: Olá, eu sou o assistente do Cesar, gostaria de alertar-lo que o inquilino :neto correia, da casa: casa do elefante, está com o aluguel atrasado pois venceu: 2024-12-13
 --------------------
+Date: 18/12/2023
+Time: 16:49
+Phone Number: +5535997233676
+Message: Olá, eu sou o assistente do Cesar, gostaria de alertar-lo que o inquilino :neto correia, da casa: casa do elefante, está com o aluguel atrasado pois venceu: 2024-12-13
+--------------------
+Date: 18/12/2023
+Time: 16:49
+Phone Number: +5535997233676
+Message: Olá, eu sou o assistente do Cesar, gostaria de alertar-lo que o inquilino :neto correia, da casa: casa do elefante, está com o aluguel atrasado pois venceu: 2024-12-13
+--------------------
+Date: 19/12/2023
+Time: 11:25
+Phone Number: +5535997233676
+Message: Olá, eu sou o assistente do Cesar, gostaria de alertar-lo que o inquilino :neto correia, da casa: casa do elefante, está com o aluguel atrasado pois venceu: 2024-12-13
+--------------------
+Date: 19/12/2023
+Time: 11:26
+Phone Number: +5535997233676
+Message: Olá, eu sou o assistente do Cesar, gostaria de alertar-lo que o inquilino :neto correia, da casa: casa do elefante, está com o aluguel atrasado pois venceu: 2024-12-13
+--------------------
