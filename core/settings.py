@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gestaoAluguel',
     'users',
+    'despesas',
     "crispy_forms",
     "crispy_bootstrap5",
 ]
