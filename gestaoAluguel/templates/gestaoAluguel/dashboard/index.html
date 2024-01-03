@@ -107,6 +107,28 @@
                     </div>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#"
+                        data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fa-solid fa-house-circle-check"></i>
+                        <span>Despesas</span>
+                    </a>
+
+                    <div id="collapseTwo" class="collapse"
+                        aria-labelledby="headingTwo"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Gerenciamento de despesas</h6>
+                            <a class="collapse-item"
+                                href="{% url 'registrar_despesas'%}">Registrar</a>
+                            <a class="collapse-item" href="{% url 'casa_home'%}">Listar</a>
+                            <a class="collapse-item"
+                                href="{% url 'listar_casa'%}">Tabela</a>
+                        </div>
+                    </div>
+                </li>
+
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
