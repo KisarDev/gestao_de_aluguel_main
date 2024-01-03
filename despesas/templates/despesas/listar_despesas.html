@@ -1,0 +1,51 @@
+{% extends "gestaoAluguel/dashboard/index.html" %}
+{% include "gestaoAluguel/partials/_header.html" %}
+<!DOCTYPE html>
+{% load static %}
+{% block conteudo %}
+<body>
+    <header class="container text-center">
+        <h1>Tabela de despesas</h1>
+        
+    </header>
+    <div class="container mt-4">
+        <style>
+            /* Adicione este bloco de estilo para garantir bordas nas células da tabela */
+            table.table-bordered td, table.table-bordered th {
+                border: 1px solid black;
+            }
+        </style>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Casa</th>
+                    <th>Atualizar/Remover</th>
+                </tr>
+            </thead>
+            <tbody class="table table-bordered">
+                {% for despesa in despesas %}
+                    <tr class="table table-bordered thead-dark">
+                        <td><a href="#">{{ despesa.identificador }}</a></td>
+                        <td>{{ despesa.identificador }}</td>
+                        <td>{{ despesa.tipo }}</td>
+                        <td>{{ despesa.data_chegada }}</td>
+                        <td>{{ despesa.data_vencimento }}</td>
+                        <td>{{ despesa.qtd_pessoas }}</td>
+                        <td>{{ despesa.valor }}</td>
+                        <td>{{ despesa.valor_por_pessoa }}</td>
+                        <td>{{ despesa.casa }}</td>
+                        <td>{{ despesa.inquilino }}</td>
+                        <td><a class="btn btn-primary m-2" href="#">Atualizar</a><a class="btn btn-primary" href="#">Remover</a></td>
+                     
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+</body>
+{% endblock conteudo %}
