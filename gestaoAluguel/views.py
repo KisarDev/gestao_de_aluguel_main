@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from utils.message import enviar_aviso
 from utils.verificardor_de_cobranca import verificador_de_cobranca
 from .models import Casa, Inquilino
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CasaForm, InquilinoForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -24,7 +24,7 @@ def registrar_casa(request):
         casa.dono = request.user
         form.save()
         messages.success(request, 'Casa registrada com sucesso!')
-
+        return redirect("dashboard")
     context['form'] = form
 
     return render(request, "gestaoAluguel/pages/registrar_casa2.html", context)
