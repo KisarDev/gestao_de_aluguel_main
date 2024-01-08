@@ -13,14 +13,14 @@ tipo_choices = (
 
 class Despesas(models.Model):
     tipo = models.CharField(max_length=1, choices=tipo_choices)
-    identificador = models.CharField(max_length=50)
+    nome_despesa = models.CharField(max_length=50)
     data_chegada = models.DateField()
     data_vencimento = models.DateField()
     qtd_pessoas = models.IntegerField()
     valor = models.FloatField()
     valor_por_pessoa = models.FloatField(blank=True, null=True)
-    casa = models.ManyToManyField(Casa)
-    inquilino = models.ManyToManyField(Inquilino)
+    casa = models.ForeignKey(Casa, on_delete=models.CASCADE)
+    inquilino = models.ForeignKey(Inquilino, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         # Calcula o valor por pessoa antes de salvar

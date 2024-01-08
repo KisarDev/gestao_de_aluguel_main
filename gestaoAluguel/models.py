@@ -57,7 +57,7 @@ class Casa(models.Model):
             self.save()
 
     def __str__(self):
-        return self.identificador
+        return str(self.identificador)
 
 
 # class MesRendimento(models.Model):

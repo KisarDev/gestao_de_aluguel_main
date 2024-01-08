@@ -8,6 +8,7 @@ from django.forms.widgets import PasswordInput, TextInput
 
 # - Register/Create a user
 
+
 class CreateUserForm(UserCreationForm):
 
     class Meta:
@@ -15,8 +16,20 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username', 'password1', 'password2']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
 
-# - Login a user
+        if username == password1:
+            raise forms.ValidationError(
+                "Usuário e senha não podem ser iguais")
+        if password1 != password2:
+            raise forms.ValidationError(
+                "As senhas não se repetem!")
+        return cleaned_data
+
 
 class LoginForm(AuthenticationForm):
 

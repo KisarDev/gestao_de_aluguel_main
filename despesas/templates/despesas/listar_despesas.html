@@ -18,17 +18,21 @@
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Telefone</th>
-                    <th>Casa</th>
+                    <th>Identificador</th>
+                    <th>Tipo</th>
+                    <th>Data de chegada</th>
+                    <th>Data de vencimento</th>
+                    <th>Quantidade de pessoas</th>
+                    <th>Valor total</th>
+                    <th>Valor por pessoa</th>
+                    <th>Casas</th>
+                    <th>Inquilinos</th>
                     <th>Atualizar/Remover</th>
                 </tr>
             </thead>
             <tbody class="table table-bordered">
                 {% for despesa in despesas %}
                     <tr class="table table-bordered thead-dark">
-                        <td><a href="#">{{ despesa.identificador }}</a></td>
                         <td>{{ despesa.identificador }}</td>
                         <td>{{ despesa.tipo }}</td>
                         <td>{{ despesa.data_chegada }}</td>
@@ -36,7 +40,7 @@
                         <td>{{ despesa.qtd_pessoas }}</td>
                         <td>{{ despesa.valor }}</td>
                         <td>{{ despesa.valor_por_pessoa }}</td>
-                        <td>{{ despesa.casa }}</td>
+                        <td>{% for casa in casas %} {{casa}}, {% endfor %}</td>
                         <td>{{ despesa.inquilino }}</td>
                         <td><a class="btn btn-primary m-2" href="#">Atualizar</a><a class="btn btn-primary" href="#">Remover</a></td>
                      
