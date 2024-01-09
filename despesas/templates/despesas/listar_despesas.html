@@ -28,6 +28,7 @@
                     <th>Casas</th>
                     <th>Inquilinos</th>
                     <th>Atualizar/Remover</th>
+                    <th>Adicionar casa</th>
                 </tr>
             </thead>
             <tbody class="table table-bordered">
@@ -40,9 +41,22 @@
                         <td>{{ despesa.qtd_pessoas }}</td>
                         <td>{{ despesa.valor }}</td>
                         <td>{{ despesa.valor_por_pessoa }}</td>
-                        <td>{% for casa in casas %} {{casa}}, {% endfor %}</td>
+                        <td>{{ despesa.casa}}</td>
                         <td>{{ despesa.inquilino }}</td>
                         <td><a class="btn btn-primary m-2" href="#">Atualizar</a><a class="btn btn-primary" href="#">Remover</a></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Selecione uma casa
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    {% for casa in casas %}
+                                        <a class="dropdown-item" href="#">{{ casa.identificador }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <a class="btn btn-primary m-2" href="{% url 'adicionar_casa' %}">Adicionar casa</a>
+                        </td>
                      
                     </tr>
                 {% endfor %}

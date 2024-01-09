@@ -1,17 +1,23 @@
 from datetime import timedelta
+from typing import Any
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from datetime import date
 
+from despesas.models import Despesas
+
 
 class Inquilino(models.Model):
     nome = models.CharField('Nome', max_length=100)
     cpf = models.CharField('CPF', max_length=25, unique=True)
+    rg = models.CharField('Rg', max_length=25, unique=True)
+    profissao = models.CharField('Profissão', max_length=40)
     telefone = models.CharField('Telefone', max_length=30)
     dono = models.ForeignKey(User, on_delete=models.CASCADE)
     identificador_casa = models.ForeignKey('Casa', on_delete=models.CASCADE,
                                            null=True, blank=True)
+    despesa = models.ManyToManyField(Despesas)
 
     def obter_identificador_da_casa(self):
         # Acesse um atributo específico da casa
@@ -31,7 +37,9 @@ class Casa(models.Model):
     pago = models.BooleanField(default=False)
     data_ultimo_pagamento = models.DateField()
     data_vencimento_aluguel = models.DateField()
-    adiantamento = models.JSONField(blank=True, null=True, default={"dia_do_adiantamento": "00/00/0000", "valor_do_adiantamento": 0.0})
+    adiantamento = models.JSONField(blank=True, null=True, default={
+                                    "dia_do_adiantamento": "00/00/0000", "valor_do_adiantamento": 0.0})
+    despesa = models.ManyToManyField(Despesas)
 
     def calcular_data_de_vencimento(self):
         data_de_hoje = date.today()
@@ -58,6 +66,12 @@ class Casa(models.Model):
 
     def __str__(self):
         return str(self.identificador)
+
+
+class Contrato(models.Model):
+    inquilino = models.ForeignKey(Inquilino, on_delete=models.CASCADE)
+    meses_de_locacao = models.IntegerField()
+    tipo_de_locação = models.CharField(max_length=15, default="residencial")
 
 
 # class MesRendimento(models.Model):

@@ -21,8 +21,13 @@ def listar_despesas(request):
     despesas = Despesas.objects.all()
     casas = []
     for despesa in despesas:
-        casas_str = ', '.join([str(casa) for casa in despesa.casa.all()])
+        casas_str = despesa.casa.identificador  # Ajuste aqui para acessar o nome da casa diretamente
         casas.append(casas_str)
     context = {"despesas": despesas, "casas": casas}
     return render(request, "despesas/listar_despesas.html",
                   context=context)
+
+
+@login_required(login_url='login')
+def adicionar_casa(request, casa_id):
+    ...
