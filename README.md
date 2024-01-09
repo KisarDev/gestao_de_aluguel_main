@@ -21,9 +21,10 @@ Este projeto tem como objetivo facilitar a gestão de aluguel, pagamento, inquil
 ## Instalação
 
 1. Clone o repositório: `git clone https://github.com/seu-usuario/seu-projeto.git`
-2. Instale as dependências: `npm install`
-3. Configure as variáveis de ambiente (veja o arquivo `.env.example`)
-4. Execute o projeto: `npm start`
+2. Instale e ative o ambiente virtual: (https://docs.python.org/3/library/venv.html)
+4. Instale as dependências: `pip install -r requirements.txt`
+5. Configure as variáveis de ambiente (veja o arquivo `.env.example`)
+6. Execute o projeto: `python manage.py runserver`
 
 ## Tecnologias Utilizadas
 
