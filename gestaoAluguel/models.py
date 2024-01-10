@@ -13,6 +13,7 @@ class Inquilino(models.Model):
     cpf = models.CharField('CPF', max_length=25, unique=True)
     rg = models.CharField('Rg', max_length=25, unique=True)
     profissao = models.CharField('Profissão', max_length=40)
+    estado_civil = models.CharField("Estado civil", max_length=20)
     telefone = models.CharField('Telefone', max_length=30)
     dono = models.ForeignKey(User, on_delete=models.CASCADE)
     identificador_casa = models.ForeignKey('Casa', on_delete=models.CASCADE,

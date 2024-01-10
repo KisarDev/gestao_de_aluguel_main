@@ -25,6 +25,8 @@
                     <th>Data do último pagamento</th>
                     <th>Data de vencimento</th>
                     <th>Adiantamento</th>
+                    <th>Despesas</th>
+
                 </tr>
             </thead>
             <tbody class="table table-bordered">
@@ -37,6 +39,7 @@
                         <td>{{ casa.data_ultimo_pagamento }}</td>
                         <td>{{ casa.data_vencimento_aluguel }}</td>
                         <td>{{ casa.adiantamento }}</td>
+                        <td>{% for despesa in casa.despesa.all %}{{ despesa }}{% endfor %}</td>
                     </tr>
                 {% endfor %}
             </tbody>
