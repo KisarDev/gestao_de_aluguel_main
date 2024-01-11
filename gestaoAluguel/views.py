@@ -20,24 +20,19 @@ def home(request):
 def registrar_casa(request):
     context = {}
     form = CasaForm(request.POST or None)
-    if form.is_valid():
-        casa = form.save(commit=False)
-        casa.dono = request.user
-        form.save()
-        messages.success(request, 'Casa registrada com sucesso!')
-        return redirect("dashboard")
-    context['form'] = form
-    
 
-    # data_pagamento = form.data["data_ultimo_pagamento"]
-    # valor = float(form.data["valor_aluguel"])
-    # data_mes, created = MesRendimento.objects.get_or_create(
-    #     nome_do_mes=pegar_mes(data_pagamento),
-    #     valor=float(valor)
-    # )
-    # if not created:
-    #     data_mes.valor += valor
-    #     data_mes.save()
+    if request.method == 'POST':
+        if form.is_valid():
+            casa = form.save(commit=False)
+            casa.dono = request.user
+            casa.save()
+            messages.success(request, 'Casa registrada com sucesso!')
+            return redirect("dashboard")
+        else:
+            # Adicione mensagens de erro ao contexto
+            messages.error(request, 'Erro ao registrar a casa. Por favor, corrija os erros no formulário.')
+
+    context['form'] = form
     return render(request, "gestaoAluguel/pages/registrar_casa2.html", context)
 
 
