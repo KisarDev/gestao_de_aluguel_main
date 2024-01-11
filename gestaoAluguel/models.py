@@ -75,22 +75,7 @@ class Contrato(models.Model):
     tipo_de_locação = models.CharField(max_length=15, default="residencial")
 
 
-# class MesRendimento(models.Model):
-#     rendimento_do_mes = models.FloatField()
-#     mes_choices = (
-#         ('jan', 'Janeiro'),
-#         ('fev', 'Fevereiro'),
-#         ('mar', 'Março'),
-#         ('abr', 'Abril'),
-#         ('mai', 'Maio'),
-#         ('jun', 'Junho'),
-#         ('jul', 'Julio'),
-#         ('ago', 'Agosto'),
-#         ('set', 'Setembro'),
-#         ('out', 'Outubro'),
-#         ('nov', 'Novembro'),
-#         ('dez', 'Dezembro'),
-#     )
-#     mes = models.CharField(max_length=3, choices=mes_choices)
-#     valor_aluguel = models.ForeignKey(
-#         Casa, on_delete=models.CASCADE)
+class MesRendimento(models.Model):
+    nome_do_mes = models.CharField(max_length=15)
+    valor = models.FloatField()
+    

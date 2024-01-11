@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from utils.message import enviar_aviso
+from utils.pegar_mes import pegar_mes
 from utils.verificardor_de_cobranca import verificador_de_cobranca
-from .models import Casa, Inquilino
+from .models import Casa, Inquilino, MesRendimento
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CasaForm, InquilinoForm
 from django.contrib import messages
@@ -26,7 +27,17 @@ def registrar_casa(request):
         messages.success(request, 'Casa registrada com sucesso!')
         return redirect("dashboard")
     context['form'] = form
+    
 
+    # data_pagamento = form.data["data_ultimo_pagamento"]
+    # valor = float(form.data["valor_aluguel"])
+    # data_mes, created = MesRendimento.objects.get_or_create(
+    #     nome_do_mes=pegar_mes(data_pagamento),
+    #     valor=float(valor)
+    # )
+    # if not created:
+    #     data_mes.valor += valor
+    #     data_mes.save()
     return render(request, "gestaoAluguel/pages/registrar_casa2.html", context)
 
 
@@ -143,7 +154,6 @@ def dashboard(request):
                                              (dono=request.user)),
                "valores": valores
                }
-    print(valores)
     return render(request, "gestaoAluguel/dashboard/index.html",
                   context=context)
 
@@ -180,6 +190,7 @@ def spider(request):
         nome = casa.representante
         nome_da_casa = casa.identificador
         data_de_vencimento = casa.data_vencimento_aluguel
-    
-    enviar_aviso(nome=nome, casa=nome_da_casa, data_do_vencimento_do_aluguel=data_de_vencimento)
+
+    enviar_aviso(nome=nome, casa=nome_da_casa,
+                 data_do_vencimento_do_aluguel=data_de_vencimento)
     return HttpResponse("Aviso enviado com sucesso!")
