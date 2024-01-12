@@ -1,4 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from utils.message import enviar_aviso
 from utils.pegar_mes import pegar_mes
 from utils.verificardor_de_cobranca import verificador_de_cobranca
@@ -26,8 +27,8 @@ def registrar_casa(request):
             casa = form.save(commit=False)
             casa.dono = request.user
             casa.save()
-            messages.success(request, 'Casa registrada com sucesso!')
-            return redirect("dashboard")
+
+            return HttpResponseRedirect(reverse("dashboard"), messages.success(request, 'Casa registrada com sucesso!'))
         else:
             # Adicione mensagens de erro ao contexto
             messages.error(
@@ -68,7 +69,6 @@ def registrar_inquilino(request):
             messages.error(
                 request, 'Erro ao registrar a casa. Por favor, corrija os erros no formulário.')
 
-
     context['form'] = form
     return render(request, "gestaoAluguel/pages/registrar_inquilino.html",
                   context)
@@ -77,21 +77,18 @@ def registrar_inquilino(request):
 @login_required(login_url='login')
 def atualizar_casa(request, id):
     context = {}
-
-    # fetch the object related to passed id
     obj = get_object_or_404(Casa, id=id)
-
-    # pass the object as instance in form
     form = CasaForm(request.POST or None, instance=obj)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Casa atualizada com sucesso')
+            return HttpResponseRedirect(reverse("dashboard"))
+        else:
+            messages.error(request, "Houve um erro na operação. Tente novamente")
 
-    # save the data from the form and
-    # redirect to detail_view
-    if form.is_valid():
-        form.save()
-
-    # add form dictionary to context
-    context["form"] = form
     Casa.calcular_data_de_vencimento(obj)
+    context["form"] = form
     return render(request, "gestaoAluguel/pages/atualizar_casa.html", context)
 
 
@@ -149,7 +146,6 @@ def dashboard(request):
     _rendimento_pendente = _rendimento_estimado - _rendimento_atual
     valores = [_rendimento_estimado, _rendimento_atual, _rendimento_pendente]
     month_data = pegar_mes()
-    print(month_data)
     context = {"user": user,
                "rendimento_estimando": _rendimento_estimado,
                "rendimento_atual": _rendimento_atual,

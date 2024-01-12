@@ -1,9 +1,16 @@
-{% if messages %}
-<div class="main-content center container messages-container">
-    {% for message in messages %}
-        <div class="message {{ message.tags }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-</div>
-{% endif %}
+{% for message in messages %}
+
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+
+                    <p id="message-timer" class="alert alert-success float-center text-center message-text"> 
+
+                        <i class="fa fa-check" aria-hidden="true"></i> &nbsp; {{message}}
+
+                    </p>
+
+
+                {% endif %}
+
+
+{% endfor %}

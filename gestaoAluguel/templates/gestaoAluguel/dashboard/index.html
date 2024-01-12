@@ -1,4 +1,5 @@
 {% load static %}
+{% include "gestaoAluguel/partials/_messages.html" %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -711,17 +712,17 @@
                                             <span class="mr-2">
                                                 <i
                                                     class="fas fa-circle text-primary"></i>
-                                                Direct
+                                                Estimado
                                             </span>
                                             <span class="mr-2">
                                                 <i
                                                     class="fas fa-circle text-success"></i>
-                                                Social
+                                                Atual
                                             </span>
                                             <span class="mr-2">
                                                 <i
                                                     class="fas fa-circle text-info"></i>
-                                                Referral
+                                                Pendente
                                             </span>
                                         </div>
                                     </div>
@@ -745,7 +746,6 @@
                                     </div>
                                     <div class="card-body">
                                         <p>Torne sua vida mais facil com um sistema completo para gestão de seus alugueis.</p>
-                                        <h1>{% for data in month_data %}{{month_data.values}}{% endfor %}</h1>
                                         
                                     </div>
                                 </div>
