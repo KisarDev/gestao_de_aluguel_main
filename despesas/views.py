@@ -26,8 +26,3 @@ def listar_despesas(request):
     context = {"despesas": despesas, "casas": casas}
     return render(request, "despesas/listar_despesas.html",
                   context=context)
-
-
-@login_required(login_url='login')
-def adicionar_casa(request, casa_id):
-    ...

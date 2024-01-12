@@ -30,7 +30,8 @@ def registrar_casa(request):
             return redirect("dashboard")
         else:
             # Adicione mensagens de erro ao contexto
-            messages.error(request, 'Erro ao registrar a casa. Por favor, corrija os erros no formulário.')
+            messages.error(
+                request, 'Erro ao registrar a casa. Por favor, corrija os erros no formulário.')
 
     context['form'] = form
     return render(request, "gestaoAluguel/pages/registrar_casa2.html", context)
@@ -56,11 +57,17 @@ def listar_casa(request):
 def registrar_inquilino(request):
     context = {}
     form = InquilinoForm(request.POST or None)
-    if form.is_valid():
-        inquilino = form.save(commit=False)
-        inquilino.dono = request.user
-        form.save()
-        messages.success(request, 'Inquilino registrado com sucesso')
+    if request.method == 'POST':
+        if form.is_valid():
+            inquilino = form.save(commit=False)
+            inquilino.dono = request.user
+            form.save()
+            messages.success(request, 'Inquilino registrado com sucesso')
+            return redirect("dashboard")
+        else:
+            messages.error(
+                request, 'Erro ao registrar a casa. Por favor, corrija os erros no formulário.')
+
 
     context['form'] = form
     return render(request, "gestaoAluguel/pages/registrar_inquilino.html",
@@ -141,13 +148,16 @@ def dashboard(request):
     _rendimento_atual = rendimento_atual(request=request)
     _rendimento_pendente = _rendimento_estimado - _rendimento_atual
     valores = [_rendimento_estimado, _rendimento_atual, _rendimento_pendente]
+    month_data = pegar_mes()
+    print(month_data)
     context = {"user": user,
                "rendimento_estimando": _rendimento_estimado,
                "rendimento_atual": _rendimento_atual,
                "rendimento_pendente": _rendimento_pendente,
                "quantidade_de_alugueis": len(Casa.objects.filter
                                              (dono=request.user)),
-               "valores": valores
+               "valores": valores,
+               "month_data": month_data
                }
     return render(request, "gestaoAluguel/dashboard/index.html",
                   context=context)

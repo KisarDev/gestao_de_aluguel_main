@@ -2,23 +2,19 @@ from gestaoAluguel.models import Casa
 
 
 def pegar_mes():
-    datas = Casa.objects.filter(pago=True).values_list(
-        'data_ultimo_pagamento', 'valor_aluguel')
-    print(datas)
-    
-    print(casas_pagas)
-    month_names = []
+    casas_pagas = Casa.objects.filter(pago=True).all()
 
-    for data_str in datas:
-        # data_objt = datetime.strptime(data_str, "%Y-%m-%d")
-        month_name = data_str.strftime("%B")
-        month_names.append(month_name)
-    print(month_names)
-    return month_names
+    # Lista para armazenar os nomes dos meses e valores de aluguel
+    month_data = {'month_names': [], 'values': []}
 
+    for casa in casas_pagas:
+        value = casa.valor_aluguel
+        month_name = casa.data_vencimento_aluguel.strftime("%B")
 
-casas_pagas = Casa.objects.filter(pago=True).all()
-valor_aluguel = casas_pagas.values_list("valor_aluguel", flat=True)
-data_aluguel = casas_pagas.values_list("data_vencimento_aluguel", flat=True)
+        month_data['month_names'].append(month_name)
+        month_data['values'].append(value)
+    return month_data
 
-print(valor_aluguel,data_aluguel)
+month_data = pegar_mes()
+
+print(month_data)
