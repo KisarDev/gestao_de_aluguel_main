@@ -85,7 +85,8 @@ def atualizar_casa(request, id):
             messages.success(request, 'Casa atualizada com sucesso')
             return HttpResponseRedirect(reverse("dashboard"))
         else:
-            messages.error(request, "Houve um erro na operação. Tente novamente")
+            messages.error(
+                request, "Houve um erro na operação. Tente novamente")
 
     Casa.calcular_data_de_vencimento(obj)
     context["form"] = form
@@ -133,6 +134,7 @@ def deletar_inquilino(request, id):
 
     if request.method == "POST":
         obj.delete()
+        messages.success(request, "Inquilino deletado com Sucesso.")
         return HttpResponseRedirect("/dashboard/")
 
     return render(request, "gestaoAluguel/pages/deletar_inquilino.html", context)
@@ -163,8 +165,11 @@ def dashboard(request):
 def listar_inquilinos(request):
     inquilinos = Inquilino.objects.filter(dono=request.user)
     context = {"inquilinos": inquilinos}
-    return render(request, "gestaoAluguel/pages/listar_inquilino.html",
-                  context=context)
+    if request.method == "GET":
+        return render(request, "gestaoAluguel/pages/listar_inquilino.html",
+                      context=context)
+    else:
+        return HttpResponse("Metodo não permitido")
 
 
 def rendimento_estimado(request):
