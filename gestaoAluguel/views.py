@@ -11,14 +11,8 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required(login_url='login')
-def home(request):
-    casas = Casa.objects.filter(dono=request.user)
-    context = {"casas": casas}
-    return render(request, "gestaoAluguel/pages/home.html", context)
-
-
-@login_required(login_url='login')
 def registrar_casa(request):
+    """Essa view registra casas"""
     context = {}
     form = CasaForm(request.POST or None)
 
@@ -40,6 +34,7 @@ def registrar_casa(request):
 
 @login_required(login_url='login')
 def casa_home(request):
+    """Essa view lista cards com informações sobre todas as casas de um usuário"""
     casas = Casa.objects.filter(dono=request.user)
     context = {"casas": casas}
 
@@ -48,6 +43,7 @@ def casa_home(request):
 
 @login_required(login_url='login')
 def listar_casa(request):
+    """Essa view lista todas as casas em formato tabular de um usuário"""
     casas = Casa.objects.filter(dono=request.user)
     context = {"casas": casas}
 
@@ -56,6 +52,7 @@ def listar_casa(request):
 
 @login_required(login_url='login')
 def registrar_inquilino(request):
+    """Essa view lista registra novos Inquilinos => moradores das casas."""
     context = {}
     form = InquilinoForm(request.POST or None)
     if request.method == 'POST':
@@ -76,6 +73,7 @@ def registrar_inquilino(request):
 
 @login_required(login_url='login')
 def atualizar_casa(request, id):
+    """Essa view atualiza informações das casas"""
     context = {}
     obj = get_object_or_404(Casa, id=id)
     form = CasaForm(request.POST or None, instance=obj)
@@ -95,6 +93,7 @@ def atualizar_casa(request, id):
 
 @login_required(login_url='login')
 def atualizar_inquilino(request, id):
+    """Essa view atualiza os dados dos inquilinos."""
     context = {}
 
     # fetch the object related to passed id
@@ -117,6 +116,7 @@ def atualizar_inquilino(request, id):
 # delete view for details
 @login_required(login_url='login')
 def deletar_casa(request, id):
+    """Essa view deleta uma casa escolhida pelo usuário"""
     obj = Casa.objects.filter(dono=request.user, id=id)
     context = {"casa": obj}
 
@@ -129,6 +129,7 @@ def deletar_casa(request, id):
 
 @login_required(login_url='login')
 def deletar_inquilino(request, id):
+    """Essa view deleta os dados de um inquilino escolhido pelo usuário"""
     obj = Inquilino.objects.filter(dono=request.user, id=id)
     context = {"inquilino": obj}
 
@@ -142,6 +143,7 @@ def deletar_inquilino(request, id):
 
 @login_required(login_url='login')
 def dashboard(request):
+    """Essa view apresenta é uma dashboard que apresenta gráficos e informações sobre rendimento atual, pendente e esperado"""
     user = request.user
     _rendimento_estimado = rendimento_estimado(request=request)
     _rendimento_atual = rendimento_atual(request=request)
@@ -163,6 +165,7 @@ def dashboard(request):
 
 @login_required(login_url='login')
 def listar_inquilinos(request):
+    """Essa view lista todos os inquilinos"""
     inquilinos = Inquilino.objects.filter(dono=request.user)
     context = {"inquilinos": inquilinos}
     if request.method == "GET":
@@ -173,6 +176,7 @@ def listar_inquilinos(request):
 
 
 def rendimento_estimado(request):
+    """Essa view calcula o rendimento estimado para a dashboard"""
     casas = Casa.objects.filter(dono=request.user)
     rendimento_estimado = 0
     for casa in casas:
@@ -181,6 +185,7 @@ def rendimento_estimado(request):
 
 
 def rendimento_atual(request):
+    """Essa view calcula o rendimento atual para a dashboard"""
     casas = Casa.objects.filter(dono=request.user)
     rendimento_atual = 0
     for casa in casas:
@@ -190,6 +195,7 @@ def rendimento_atual(request):
 
 
 def spider(request):
+    """Essa função verifica as casas em divida e cria um alerta no whatsapp"""
     id_casa = verificador_de_cobranca(user=request.user)
     casas = Casa.objects.filter(dono=request.user, id=id_casa)
     for casa in casas:
