@@ -10,4 +10,6 @@ urlpatterns = [
          name="atualizar_inquilino"),
     path('deletar_inquilino/<int:id>', views.deletar_inquilino,
          name="deletar_inquilino"),
+    path('gerar_contrato/<int:id>', views.gerar_contrato,
+         name="gerar_contrato"),
 ]

@@ -1,6 +1,13 @@
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.shared import Pt
+from datetime import datetime, timedelta
+from .models import Inquilino
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from utils.message import enviar_aviso
+from utils._gerar_contrato import _gerar_contrato
 from utils.pegar_mes import pegar_mes
 from utils.verificardor_de_cobranca import verificador_de_cobranca
 from .models import Casa, Inquilino, MesRendimento
@@ -8,6 +15,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CasaForm, InquilinoForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from docx import Document
 
 
 @login_required(login_url='login')
@@ -143,7 +151,7 @@ def deletar_inquilino(request, id):
 
 @login_required(login_url='login')
 def dashboard(request):
-    """Essa view apresenta é uma dashboard que apresenta gráficos e informações sobre rendimento atual, pendente e esperado"""
+    """Essa view apresenta é uma dashboard que contém gráficos e informações sobre rendimento atual, pendente e esperado"""
     user = request.user
     _rendimento_estimado = rendimento_estimado(request=request)
     _rendimento_atual = rendimento_atual(request=request)
@@ -206,3 +214,9 @@ def spider(request):
     enviar_aviso(nome=nome, casa=nome_da_casa,
                  data_do_vencimento_do_aluguel=data_de_vencimento)
     return HttpResponse("Aviso enviado com sucesso!")
+
+
+@login_required(login_url='login')
+def gerar_contrato(request, id):
+    """Essa view chama uma função que gera um contrato de forma automática"""
+    return _gerar_contrato(usuario=request.user, id=id)

@@ -23,6 +23,7 @@
                     <th>Telefone</th>
                     <th>Casa</th>
                     <th>Atualizar/Remover</th>
+                    <th>Contrato</th>
                 </tr>
             </thead>
             <tbody class="table table-bordered">
@@ -33,6 +34,7 @@
                         <td>{{ inquilino.telefone }}</td>
                         <td>{{ inquilino.identificador_casa }}</td>
                         <td><a class="btn btn-primary m-2" href="{% url 'atualizar_inquilino' inquilino.id%}">Atualizar</a><a class="btn btn-primary" href="{% url 'deletar_inquilino' inquilino.id%}">Remover</a></td>
+                        <td><a class="btn btn-primary m-2" href="{% url 'gerar_contrato' inquilino.id%}">Gerar Contrato</a>
                         
                     </tr>
                 {% endfor %}
