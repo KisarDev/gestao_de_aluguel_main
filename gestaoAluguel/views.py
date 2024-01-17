@@ -1,6 +1,3 @@
-from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from docx.shared import Pt
-from datetime import datetime, timedelta
 from .models import Inquilino
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
@@ -10,12 +7,12 @@ from utils.message import enviar_aviso
 from utils._gerar_contrato import _gerar_contrato
 from utils.pegar_mes import pegar_mes
 from utils.verificardor_de_cobranca import verificador_de_cobranca
-from .models import Casa, Inquilino, MesRendimento
+from .models import Casa, Inquilino
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CasaForm, InquilinoForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from docx import Document
+
 
 
 @login_required(login_url='login')
