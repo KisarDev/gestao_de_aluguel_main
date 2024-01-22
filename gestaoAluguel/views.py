@@ -199,18 +199,18 @@ def rendimento_atual(request):
     return rendimento_atual
 
 
-def spider(request):
-    """Essa função verifica as casas em divida e cria um alerta no whatsapp"""
-    id_casa = verificador_de_cobranca(user=request.user)
-    casas = Casa.objects.filter(dono=request.user, id=id_casa)
-    for casa in casas:
-        nome = casa.representante
-        nome_da_casa = casa.identificador
-        data_de_vencimento = casa.data_vencimento_aluguel
+# def spider(request):
+#     """Essa função verifica as casas em divida e cria um alerta no whatsapp"""
+#     id_casa = verificador_de_cobranca(user=request.user)
+#     casas = Casa.objects.filter(dono=request.user, id=id_casa)
+#     for casa in casas:
+#         nome = casa.representante
+#         nome_da_casa = casa.identificador
+#         data_de_vencimento = casa.data_vencimento_aluguel
 
-    enviar_aviso(nome=nome, casa=nome_da_casa,
-                 data_do_vencimento_do_aluguel=data_de_vencimento)
-    return HttpResponse("Aviso enviado com sucesso!")
+#     enviar_aviso(nome=nome, casa=nome_da_casa,
+#                  data_do_vencimento_do_aluguel=data_de_vencimento)
+#     return HttpResponse("Aviso enviado com sucesso!")
 
 
 @login_required(login_url='login')
