@@ -36,7 +36,6 @@ class Casa(models.Model):
     pago = models.BooleanField(default=False)
     data_ultimo_pagamento = models.DateField('data_ultimo_pagamento')
     data_vencimento_aluguel = models.DateField('data_vencimento_aluguel')
-    adiantamento = models.JSONField(blank=True, null=True)
     despesa = models.ManyToManyField(Despesas)
 
     def calcular_data_de_vencimento(self):
