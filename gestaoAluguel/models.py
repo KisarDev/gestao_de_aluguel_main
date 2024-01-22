@@ -1,17 +1,15 @@
-from datetime import timedelta
-from typing import Any
 from django.contrib.auth.models import User
-from django.db import models
-from django.utils import timezone
-from datetime import date
-
 from despesas.models import Despesas
+from django.utils import timezone
+from datetime import timedelta
+from django.db import models
+from datetime import date
 
 
 class Inquilino(models.Model):
     nome = models.CharField('Nome', max_length=100)
-    cpf = models.CharField('CPF', max_length=25, unique=True)
-    rg = models.CharField('Rg', max_length=25, unique=True)
+    cpf = models.CharField('CPF', max_length=14, unique=True)
+    rg = models.CharField('RG', max_length=10, unique=True)
     profissao = models.CharField('Profissão', max_length=40)
     estado_civil = models.CharField("Estado civil", max_length=20)
     telefone = models.CharField('Telefone', max_length=30)
@@ -36,10 +34,11 @@ class Casa(models.Model):
     endereco = models.CharField(max_length=80)
     valor_aluguel = models.FloatField()
     pago = models.BooleanField(default=False)
-    data_ultimo_pagamento = models.DateField()
-    data_vencimento_aluguel = models.DateField()
+    data_ultimo_pagamento = models.DateField('data_ultimo_pagamento')
+    data_vencimento_aluguel = models.DateField('data_vencimento_aluguel')
     adiantamento = models.JSONField(blank=True, null=True, default={
-                                    "dia_do_adiantamento": "00/00/0000", "valor_do_adiantamento": 0.0})
+                                    "dia_do_adiantamento": "00/00/0000",
+                                    "valor_do_adiantamento": 0.0})
     despesa = models.ManyToManyField(Despesas)
 
     def calcular_data_de_vencimento(self):
@@ -51,7 +50,8 @@ class Casa(models.Model):
             novo_vencimento = self.data_ultimo_pagamento + timedelta(days=30)
 
             ultimo_dia_do_mes = timezone.datetime(
-                self.data_ultimo_pagamento.year, self.data_ultimo_pagamento.month, 1) + timedelta(days=31)
+                self.data_ultimo_pagamento.year,
+                self.data_ultimo_pagamento.month, 1) + timedelta(days=31)
             if novo_vencimento >= ultimo_dia_do_mes.date():
                 novo_vencimento = ultimo_dia_do_mes.date() - timedelta(days=1)
 
