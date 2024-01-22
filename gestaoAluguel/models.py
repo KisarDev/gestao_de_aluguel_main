@@ -67,15 +67,3 @@ class Casa(models.Model):
 
     def __str__(self):
         return str(self.identificador)
-
-
-class Contrato(models.Model):
-    inquilino = models.ForeignKey(Inquilino, on_delete=models.CASCADE)
-    meses_de_locacao = models.IntegerField()
-    tipo_de_locação = models.CharField(max_length=15, default="residencial")
-
-
-class MesRendimento(models.Model):
-    nome_do_mes = models.CharField(max_length=15)
-    valor = models.FloatField()
-    
