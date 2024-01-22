@@ -3,15 +3,13 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from utils._gerar_contrato import _gerar_contrato
-from utils.pegar_mes import pegar_mes
-from utils.verificardor_de_cobranca import verificador_de_cobranca
+from gestaoAluguel.utils._gerar_contrato import _gerar_contrato
+from gestaoAluguel.utils.pegar_mes import pegar_mes
 from .models import Casa, Inquilino
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CasaForm, InquilinoForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
 
 
 @login_required(login_url='login')
@@ -153,7 +151,8 @@ def dashboard(request):
     _rendimento_atual = rendimento_atual(request=request)
     _rendimento_pendente = _rendimento_estimado - _rendimento_atual
     valores = [_rendimento_estimado, _rendimento_atual, _rendimento_pendente]
-    month_data = pegar_mes()
+    casas_pagas = Casa.objects.filter(pago=True).all()
+    month_data = pegar_mes(casas_pagas)
     context = {"user": user,
                "rendimento_estimando": _rendimento_estimado,
                "rendimento_atual": _rendimento_atual,
@@ -210,7 +209,6 @@ def rendimento_atual(request):
 #     enviar_aviso(nome=nome, casa=nome_da_casa,
 #                  data_do_vencimento_do_aluguel=data_de_vencimento)
 #     return HttpResponse("Aviso enviado com sucesso!")
-
 
 @login_required(login_url='login')
 def gerar_contrato(request, id):

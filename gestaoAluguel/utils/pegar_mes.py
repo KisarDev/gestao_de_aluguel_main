@@ -1,8 +1,4 @@
-from gestaoAluguel.models import Casa
-
-
-def pegar_mes():
-    casas_pagas = Casa.objects.filter(pago=True).all()
+def pegar_mes(casas_pagas):
 
     # Lista para armazenar os nomes dos meses e valores de aluguel
     month_data = {'month_names': [], 'values': []}
@@ -14,5 +10,3 @@ def pegar_mes():
         month_data['month_names'].append(month_name)
         month_data['values'].append(value)
     return month_data
-
-month_data = pegar_mes()
