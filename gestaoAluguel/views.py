@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from utils.message import enviar_aviso
+#from utils.message import enviar_aviso
 from utils._gerar_contrato import _gerar_contrato
 from utils.pegar_mes import pegar_mes
 from utils.verificardor_de_cobranca import verificador_de_cobranca
