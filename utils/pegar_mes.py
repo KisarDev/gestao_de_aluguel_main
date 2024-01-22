@@ -16,5 +16,3 @@ def pegar_mes():
     return month_data
 
 month_data = pegar_mes()
-
-print(month_data)
