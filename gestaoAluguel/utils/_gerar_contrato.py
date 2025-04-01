@@ -5,13 +5,12 @@ from docx import Document
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 
-from gestaoAluguel.models import Inquilino
+from gestaoAluguel.models import Casa, Inquilino
 
 
 def _gerar_contrato(usuario, id):
     """Faz uma query do inquilino selecionado pelo botão e substitui os valores do contrato pelos valores padrão"""
     inquilino = get_object_or_404(Inquilino, dono=usuario, id=id)
-
     data_inicio = datetime.now().strftime("%d/%m/%Y")
     data_fim = (datetime.now() + timedelta(days=180)
                 ).strftime("%d/%m/%Y")  # 180 dias = 6 meses
@@ -27,7 +26,7 @@ def _gerar_contrato(usuario, id):
     titulo.runs[0].font.bold = True
 
     document.add_paragraph(f"""
-Os signatários deste instrumento, de um lado Cesar Augusto Martins Silva, brasileiro, casado, residente nesta cidade de Extrema MG à rua Carolina Ferreira de Andrade, nº 30, Bairro Tenentes 4, Extrema MG, portador do RG 23.991.978 e CPF 142.374.006-89, e do outro lado {inquilino.nome}, brasileira, {inquilino.profissao}, {inquilino.estado_civil}, portadora do RG nº {inquilino.rg} , CPF Nº {inquilino.cpf}, residente e domiciliado a Rua Carolina Ferreira De Andrade, 30 Tenentes 4 - Extrema MG, tem justos e contratados o seguinte, que mutuamente convencionam, outorgam e aceitam, a saber:
+Os signatários deste instrumento, de um lado Cesar Augusto Martins Silva, brasileiro, casado, residente nesta cidade de Extrema MG à rua Carolina Ferreira de Andrade, nº 30, Bairro Tenentes 4, Extrema MG, portador do RG 23.991.978 e CPF 142.374.006-89, e do outro lado {inquilino.nome}, brasileiro, {inquilino.profissao}, {inquilino.estado_civil}, portador do RG nº {inquilino.rg} , CPF Nº {inquilino.cpf}, residente e domiciliado a Rua Carolina Ferreira De Andrade, 30 Tenentes 4 - Extrema MG, tem justos e contratados o seguinte, que mutuamente convencionam, outorgam e aceitam, a saber:
 
 1ª) O prazo de locação é de 6 meses (6 meses) a iniciar em {data_inicio} e a terminar em {data_fim}, data em que o locatário se obriga a restituir o imóvel desocupado ou de outra forma a renovar expressamente o novo contrato caso venha a permanecer no imóvel.
 
@@ -63,7 +62,7 @@ Extrema - MG, {datetime.now().strftime("%d de %B de %Y")}
 
 Cesar Augusto Martins Silva
 
-Jamile Alves de Assunção
+{inquilino.nome}
 
 TESTEMUNHAS:
 

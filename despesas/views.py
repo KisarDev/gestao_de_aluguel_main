@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from despesas.forms import DespesasForm
-from despesas.models import Despesas
+from despesas.models import Despesa
 from django.contrib.auth.decorators import login_required
 
 
@@ -18,7 +18,7 @@ def registrar_despesas(request):
 
 @login_required(login_url='login')
 def listar_despesas(request):
-    despesas = Despesas.objects.all()
+    despesas = Despesa.objects.all()
     casas = []
     for despesa in despesas:
         casas_str = despesa.casa.identificador  # Ajuste aqui para acessar o nome da casa diretamente

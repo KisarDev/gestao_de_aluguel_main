@@ -1,9 +1,9 @@
 from django import forms
 
-from despesas.models import Despesas
+from despesas.models import Despesa
 
 
 class DespesasForm(forms.ModelForm):
     class Meta:
-        model = Despesas
+        model = Despesa
         exclude = ('valor_por_pessoa',)

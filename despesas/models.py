@@ -1,4 +1,3 @@
-from typing import Any
 from django.db import models
 
 tipo_choices = (
@@ -9,19 +8,33 @@ tipo_choices = (
 )
 
 
-class Despesas(models.Model):
+class Despesa(models.Model):
     tipo = models.CharField(max_length=1, choices=tipo_choices)
-    nome_despesa = models.CharField(max_length=50)
+    casa = models.ForeignKey(
+        'gestaoAluguel.Casa', related_name='casa', blank=True, on_delete=models.CASCADE)
+    morador = models.ManyToManyField(
+        'gestaoAluguel.Morador', related_name='morador', blank=True)
     data_chegada = models.DateField()
     data_vencimento = models.DateField()
-    qtd_pessoas = models.IntegerField()
     valor = models.FloatField()
     valor_por_pessoa = models.FloatField(blank=True, null=True)
+    pago = models.BooleanField()
 
     def save(self, *args, **kwargs):
-        # Calcula o valor por pessoa antes de salvar
-        self.valor_por_pessoa = self.valor / float(self.qtd_pessoas)
-        super(Despesas, self).save(*args, **kwargs)
+        # Calculate the value per person before saving
+        morador_count = len(self.morador.all())
+        print(morador_count)
+
+        if morador_count > 0:
+            self.valor_por_pessoa = self.valor / float(morador_count)
+        else:
+            self.valor_por_pessoa = 0.0
+
+        super(Despesa, self).save(*args, **kwargs)
+
+    def get_tipo_display(self):
+        # Returns the display value for the 'tipo' field
+        return dict(tipo_choices)[self.tipo]
 
     def __str__(self):
-        return self.nome_despesa
+        return self.get_tipo_display()
